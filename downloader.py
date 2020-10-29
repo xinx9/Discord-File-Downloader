@@ -1,8 +1,7 @@
 import json
 import os
 import time
-
-#TODO change to urllib2 or any other api that can download files from a url (https://docs.aiohttp.org/en/stable/)
+import sys
 import requests
 
 
@@ -107,11 +106,14 @@ def dircreate(pathtofile, filename):
         print(filename, " folder created")
         os.mkdir(pathtofile)
 
+if(len(sys.argv) == 3):
+    print("Usage: python downloader.py <Json Folder Name> <new Folder Name>")
+    sys.exit()
 
-os.chdir("../discorddata")
+os.chdir(sys.argv[1])
 cwd = os.getcwd()
 
-filename = "data"
+filename = sys.argv[2]
 filepath = "\\" + filename
 pathtoroot = os.path.join(os.getcwd() + filepath)
 print(pathtoroot)
@@ -121,7 +123,4 @@ path = os.listdir()
 test = path[0]
 
 for i in path:
-    if "Direct Messages" in i:
-        jsonparse(i, filename)
-    elif "The Dog House" in i:
-        jsonparse(i, filename)
+    jsonparse(i, filename)
